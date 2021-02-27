@@ -15,10 +15,11 @@ class AvailableThemesViewModel(
     private val getAvailableThemesUseCase: GetAvailableThemesUseCase
 ) : ViewModel() {
 
+    var themesAlreadyRequested: Boolean = false
+
     private var _availableThemesList = MutableLiveData<Resource<List<ThemeDataWrapper>>>()
     val availableThemesList: LiveData<Resource<List<ThemeDataWrapper>>>
         get() = _availableThemesList
-
 
     fun updateThemesList(showLoading: Boolean = true) {
         viewModelScope.launch(Dispatchers.IO) {
