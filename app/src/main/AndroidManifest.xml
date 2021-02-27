@@ -2,14 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.talentomobiletechtest">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:name=".common.dependencyinjection.TMTTApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TalentoMobileTechTest">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.talentomobiletechtest.feature.themes.view.activity.ThemesSelectionActitivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

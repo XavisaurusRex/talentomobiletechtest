@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TalentoMobileTechTest</string>
+    <string name="dialog_availablethemes_loading_message">Requesting Themes</string>
+    <string name="dialog_default_loading_message">Please wait…</string>
+    <string name="dialog_default_error_message">An unexpected error has occurred</string>
+    <string name="dialog_default_error_action">Dismiss</string>
 </resources>
