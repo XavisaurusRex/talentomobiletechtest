@@ -39,7 +39,9 @@ class ThemesSelectionActitivity : BaseActivity() {
 
         setUpObservers()
 
-        viewModel.updateThemesList()
+        if (viewModel.themesAlreadyRequested.not()) {
+            viewModel.updateThemesList()
+        }
     }
 
     private fun setUpObservers() {
@@ -50,6 +52,7 @@ class ThemesSelectionActitivity : BaseActivity() {
         when (response) {
             is Resource.Loading -> dialogsNavigator.showLoading(getString(R.string.dialog_availablethemes_loading_message))
             is Resource.Success -> {
+                viewModel.themesAlreadyRequested = true
                 dialogsNavigator.hideLoading()
                 manageSuccessResponse(response.data)
             }
