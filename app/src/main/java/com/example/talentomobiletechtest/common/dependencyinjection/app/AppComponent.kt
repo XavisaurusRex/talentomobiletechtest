@@ -5,7 +5,7 @@ import com.example.talentomobiletechtest.common.dependencyinjection.activity.Act
 import dagger.Component
 
 @AppScope
-@Component(modules = [AppModule::class, RepositoryModule::class])
+@Component(modules = [AppModule::class, RepositoryModule::class, ConverterModule::class])
 interface AppComponent {
 
     fun newActivityComponent(activityModule: ActivityModule): ActivityComponent
