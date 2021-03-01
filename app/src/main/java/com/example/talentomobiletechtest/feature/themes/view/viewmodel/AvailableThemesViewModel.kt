@@ -1,19 +1,23 @@
 package com.example.talentomobiletechtest.feature.themes.view.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.talentomobiletechtest.common.domain.ResponseWrapper
+import com.example.talentomobiletechtest.common.domain.observer.BaseObserver
+import com.example.talentomobiletechtest.common.view.viewmodel.BaseViewModel
 import com.example.talentomobiletechtest.common.view.viewmodel.Resource
-import com.example.talentomobiletechtest.feature.themes.domain.usecase.GetAvailableThemesUseCase
+import com.example.talentomobiletechtest.feature.themes.domain.usecase.FirstWorkObservableUseCase
+import com.example.talentomobiletechtest.feature.themes.domain.usecase.GetAvailableThemesObservableUseCase
+import com.example.talentomobiletechtest.feature.themes.domain.usecase.SecondWorkObservableUseCase
 import com.example.talentomobiletechtest.feature.themes.view.adapter.dw.ThemeDataWrapper
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class AvailableThemesViewModel(
-    private val getAvailableThemesUseCase: GetAvailableThemesUseCase
-) : ViewModel() {
+    private val getAvailableThemesUseCase: GetAvailableThemesObservableUseCase,
+    private val firstWorkObservableUseCase: FirstWorkObservableUseCase,
+    private val secondWorkObservableUseCase: SecondWorkObservableUseCase
+) : BaseViewModel() {
 
     var themesAlreadyRequested: Boolean = false
 
@@ -22,20 +26,67 @@ class AvailableThemesViewModel(
         get() = _availableThemesList
 
     fun updateThemesList(showLoading: Boolean = true) {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (showLoading) {
-                _availableThemesList.postValue(Resource.Loading)
+        if (showLoading) {
+            _availableThemesList.postValue(Resource.Loading)
+        }
+        runUseCase(getAvailableThemesUseCase, createAvailableThemesObserver())
+    }
+
+    fun updateAllCenters(showLoading: Boolean) {
+
+        firstWorkObservableUseCase.buildObservable().subscribeOn(Schedulers.io())
+            .zipWith(
+                secondWorkObservableUseCase.buildObservable().subscribeOn(Schedulers.io()),
+                { t, u ->
+                    val stringBuilder = StringBuilder()
+
+                    t.forEach {
+                        stringBuilder.append("THEMEDATAWRAPPER TITLE -> ${it.id}\n")
+                    }
+                    stringBuilder.append("---------------------------------\n")
+                    u.forEach {
+                        stringBuilder.append(it.toString())
+                        stringBuilder.append("\n")
+                    }
+
+                    stringBuilder.toString()
+                })
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(createParallelWorkersObserver())
+    }
+
+    private fun createAvailableThemesObserver(): BaseObserver<List<ThemeDataWrapper>> {
+        return object : BaseObserver<List<ThemeDataWrapper>>() {
+            override fun onNext(value: List<ThemeDataWrapper>) {
+                _availableThemesList.postValue(Resource.Success(value))
             }
-            _availableThemesList.postValue(requestAvailableThemes())
+
+            override fun onError(e: Throwable) {
+                _availableThemesList.postValue(Resource.UnknownError(e))
+            }
+
+            override fun onComplete() {
+                // no op
+            }
         }
     }
 
-    private suspend fun requestAvailableThemes(): Resource<List<ThemeDataWrapper>> {
-        val availableThemes = getAvailableThemesUseCase.execute()
-        return if (availableThemes is ResponseWrapper.Success) {
-            Resource.Success(availableThemes.data)
-        } else {
-            Resource.UnknownError()
+    private fun createParallelWorkersObserver(): BaseObserver<String> =
+        object : BaseObserver<String>() {
+            override fun onNext(value: String) {
+                Log.d("Thread", "FINISHED -> $value")
+                _availableThemesList.postValue(Resource.UnknownError(Exception(value)))
+            }
+
+            override fun onError(e: Throwable) {
+                _availableThemesList.postValue(Resource.UnknownError(e))
+            }
+
+            override fun onComplete() {
+                // no op
+            }
+
         }
-    }
 }

@@ -1,6 +1,7 @@
 package com.example.talentomobiletechtest.feature.themes.view.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.example.talentomobiletechtest.R
 import com.example.talentomobiletechtest.common.dependencyinjection.presentation.PresentationComponent
@@ -37,6 +38,10 @@ class ThemesSelectionActitivity : BaseActivity() {
         binding = ActivityThemeSelectionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.btnMain.setOnClickListener {
+            viewModel.updateAllCenters(true)
+        }
+
         setUpObservers()
 
         if (viewModel.themesAlreadyRequested.not()) {
@@ -49,18 +54,19 @@ class ThemesSelectionActitivity : BaseActivity() {
     }
 
     private fun updateList(response: Resource<List<ThemeDataWrapper>>) {
+        Log.d("ThreadsInfo", "Simply Execute the livedata update")
         when (response) {
             is Resource.Loading -> dialogsNavigator.showLoading(getString(R.string.dialog_availablethemes_loading_message))
             is Resource.Success -> {
-                viewModel.themesAlreadyRequested = true
                 dialogsNavigator.hideLoading()
                 manageSuccessResponse(response.data)
             }
             is Resource.UnknownError -> {
                 dialogsNavigator.hideLoading()
-                dialogsNavigator.showErrorDialog()
+                dialogsNavigator.showErrorDialog(response.throwable.message)
             }
         }
+        viewModel.themesAlreadyRequested = true
     }
 
     private fun manageSuccessResponse(data: List<ThemeDataWrapper>) {
@@ -71,4 +77,5 @@ class ThemesSelectionActitivity : BaseActivity() {
 
         binding.tvMain.text = stringBuilder.toString()
     }
+
 }
