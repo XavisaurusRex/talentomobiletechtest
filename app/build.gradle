@@ -40,7 +40,6 @@ android {
 dependencies {
 
 
-
     // DI
     api "com.google.dagger:dagger:2.30.1"
     kapt "com.google.dagger:dagger-compiler:2.30.1"
@@ -56,6 +55,8 @@ dependencies {
 
     // Background data
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.0.1'
 
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0'
 
