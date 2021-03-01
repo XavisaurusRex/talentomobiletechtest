@@ -10,7 +10,7 @@ import com.example.talentomobiletechtest.common.view.navigator.DialogsNavigator
 import com.example.talentomobiletechtest.common.view.viewmodel.Resource
 import com.example.talentomobiletechtest.common.view.viewmodel.VTTViewModelFactory
 import com.example.talentomobiletechtest.databinding.ActivityThemeSelectionBinding
-import com.example.talentomobiletechtest.feature.themes.view.adapter.dw.ThemeDataWrapper
+import com.example.talentomobiletechtest.feature.themes.data.model.Center
 import com.example.talentomobiletechtest.feature.themes.view.viewmodel.AvailableThemesViewModel
 import javax.inject.Inject
 
@@ -39,21 +39,21 @@ class ThemesSelectionActitivity : BaseActivity() {
         setContentView(binding.root)
 
         binding.btnMain.setOnClickListener {
-            viewModel.updateAllCenters(true)
+            viewModel.updateCentersList(true)
         }
 
         setUpObservers()
 
         if (viewModel.themesAlreadyRequested.not()) {
-            viewModel.updateThemesList()
+            viewModel.updateCentersList()
         }
     }
 
     private fun setUpObservers() {
-        viewModel.availableThemesList.observe(::getLifecycle) { updateList(it) }
+        viewModel.availableCenters.observe(::getLifecycle) { updateList(it) }
     }
 
-    private fun updateList(response: Resource<List<ThemeDataWrapper>>) {
+    private fun updateList(response: Resource<List<Center>>) {
         Log.d("ThreadsInfo", "Simply Execute the livedata update")
         when (response) {
             is Resource.Loading -> dialogsNavigator.showLoading(getString(R.string.dialog_availablethemes_loading_message))
@@ -69,10 +69,10 @@ class ThemesSelectionActitivity : BaseActivity() {
         viewModel.themesAlreadyRequested = true
     }
 
-    private fun manageSuccessResponse(data: List<ThemeDataWrapper>) {
+    private fun manageSuccessResponse(data: List<Center>) {
         val stringBuilder = StringBuilder()
         data.forEach {
-            stringBuilder.append(it.id).append(", ")
+            stringBuilder.append(it.name).append(", ")
         }
 
         binding.tvMain.text = stringBuilder.toString()

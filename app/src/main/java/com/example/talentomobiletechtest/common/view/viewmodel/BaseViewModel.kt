@@ -22,25 +22,6 @@ abstract class BaseViewModel : ViewModel() {
                 .subscribeWith(observer)
         )
     }
-//
-//    fun <T, U : BaseObservableUseCase<T>, O : BaseObserver<in T>> runUseCaseParallel(
-//        vararg useCase: U,
-//        observer: O
-//    ) {
-//
-//        useCase[0].buildObservable()
-//
-//        compositeDisposable.add(
-//            Observable.merge(
-//                useCase[0].buildObservable().subscribeOn(Schedulers.io()),
-//                useCase[1].buildObservable().subscribeOn(Schedulers.io()))
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeWith(observer)
-//        )
-//    }
-
 
     override fun onCleared() {
         compositeDisposable.clear()

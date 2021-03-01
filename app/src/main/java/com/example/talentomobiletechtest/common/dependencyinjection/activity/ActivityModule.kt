@@ -7,9 +7,7 @@ import androidx.fragment.app.FragmentManager
 import com.example.talentomobiletechtest.common.view.navigator.DialogsNavigator
 import com.example.talentomobiletechtest.common.view.navigator.ScreensNavigator
 import com.example.talentomobiletechtest.common.view.viewmodel.VTTViewModelFactory
-import com.example.talentomobiletechtest.feature.themes.domain.usecase.FirstWorkObservableUseCase
-import com.example.talentomobiletechtest.feature.themes.domain.usecase.GetAvailableThemesObservableUseCase
-import com.example.talentomobiletechtest.feature.themes.domain.usecase.SecondWorkObservableUseCase
+import com.example.talentomobiletechtest.feature.themes.domain.usecase.RequestFeedCentersUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -26,15 +24,9 @@ class ActivityModule(
 
     @Provides
     fun provideViewModelFactory(
-        getAvailableThemesUseCase: GetAvailableThemesObservableUseCase,
-        firstWorkObservableUseCase: FirstWorkObservableUseCase,
-        secondWorkObservableUseCase: SecondWorkObservableUseCase
+        requestFeedCentersUseCase: RequestFeedCentersUseCase
     ): VTTViewModelFactory =
-        VTTViewModelFactory(
-            getAvailableThemesUseCase,
-            firstWorkObservableUseCase,
-            secondWorkObservableUseCase
-        )
+        VTTViewModelFactory(requestFeedCentersUseCase)
 
     @Provides
     @ActivityScope
