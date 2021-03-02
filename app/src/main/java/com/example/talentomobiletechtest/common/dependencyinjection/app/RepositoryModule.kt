@@ -1,9 +1,14 @@
 package com.example.talentomobiletechtest.common.dependencyinjection.app
 
 import com.example.talentomobiletechtest.BuildConfig
+import com.example.talentomobiletechtest.common.data.repository.RetrofitCenterDetailsRepository
 import com.example.talentomobiletechtest.common.data.repository.RetrofitCentersRepository
-import com.example.talentomobiletechtest.feature.themes.data.remote.CentersRepository
-import com.example.talentomobiletechtest.feature.themes.data.remote.impl.CentersRepositoryImpl
+import com.example.talentomobiletechtest.feature.centersfeed.data.mapper.CenterListConverter
+import com.example.talentomobiletechtest.feature.centersfeed.data.remote.CentersRepository
+import com.example.talentomobiletechtest.feature.centersfeed.data.remote.impl.CentersRepositoryImpl
+import com.example.talentomobiletechtest.feature.details.data.mapper.CenterDetailsConverter
+import com.example.talentomobiletechtest.feature.details.data.remote.CenterDetailsRepository
+import com.example.talentomobiletechtest.feature.details.data.remote.impl.CenterDetailsRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -28,8 +33,25 @@ class RepositoryModule {
 
     @Provides
     @AppScope
+    fun provideCenterDetailsRepository(
+        retrofitCenterDetailsRepository: RetrofitCenterDetailsRepository,
+        centerDetailsConverter: CenterDetailsConverter
+    ): CenterDetailsRepository =
+        CenterDetailsRepositoryImpl(
+            retrofitCenterDetailsRepository,
+            centerDetailsConverter
+        )
+
+    @Provides
+    @AppScope
     fun provideRetrofitCentersRepository(@MadridThemesScope retrofit: Retrofit): RetrofitCentersRepository =
         retrofit.create(RetrofitCentersRepository::class.java)
+
+    @Provides
+    @AppScope
+    fun provideRetrofitCenterDetailsRepository(@MadridThemesScope retrofit: Retrofit): RetrofitCenterDetailsRepository =
+        retrofit.create(RetrofitCenterDetailsRepository::class.java)
+
 
     @Provides
     @AppScope

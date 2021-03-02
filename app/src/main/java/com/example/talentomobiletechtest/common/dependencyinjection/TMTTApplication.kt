@@ -8,9 +8,7 @@ import com.example.talentomobiletechtest.common.dependencyinjection.app.DaggerAp
 class TMTTApplication : Application() {
 
     val appComponent: AppComponent by lazy {
-        DaggerAppComponent.builder()
-            .appModule(AppModule(this))
-            .build()
+        DaggerAppComponent.builder().build()
     }
 
 }

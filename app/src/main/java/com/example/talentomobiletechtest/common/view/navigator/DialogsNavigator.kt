@@ -21,13 +21,13 @@ class DialogsNavigator(private val fragmentManager: FragmentManager) {
 
     fun hideLoading() {
         fragmentManager.findFragmentByTag(LOADING_DIALOG_FRAGMENT)?.let {
-            (it as DialogFragment).dismiss()
+            fragmentManager.popBackStack()
         }
     }
 
     fun hideError() {
         fragmentManager.findFragmentByTag(ERROR_DIALOG_FRAGMENT)?.let {
-            (it as DialogFragment).dismiss()
+            fragmentManager.popBackStack()
         }
     }
 
