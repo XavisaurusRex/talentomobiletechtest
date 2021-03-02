@@ -4,6 +4,8 @@ import com.example.talentomobiletechtest.feature.themes.domain.usecase.RequestCe
 import com.example.talentomobiletechtest.feature.themes.domain.usecase.RequestFeedCentersUseCase
 import com.example.talentomobiletechtest.feature.themes.domain.usecase.RequestJuvenileAndFamilyCareCentersUseCase
 import com.example.talentomobiletechtest.feature.themes.view.adapter.dw.CenterDataWrapper
+import com.example.talentomobiletechtest.feature.themes.view.adapter.dw.FamilyCareCenterDataWrapper
+import com.example.talentomobiletechtest.feature.themes.view.adapter.dw.HomelessCenterDataWrapper
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 
@@ -19,11 +21,15 @@ class RequestFeedCentersUseCaseImpl(
             .zipWith(
                 requestCentersForHomelessPeopleUseCase.buildObservable()
                     .subscribeOn(Schedulers.io()),
-                { t, u ->
+                { left, right ->
                     val mergeCenters: ArrayList<CenterDataWrapper> = arrayListOf()
-                    // TODO: 3/2/21 ADD Strategy to order by name on merge responses.
-                    mergeCenters.addAll(t)
-                    mergeCenters.addAll(u)
-                    mergeCenters
+                    mergeCenters.addAll(left)
+                    mergeCenters.addAll(right)
+                    return@zipWith mergeCenters.sortedBy {
+                        when (it.viewType) {
+                            CenterDataWrapper.VIEW_TYPE_FAMILY_CARE_CENTER -> (it as FamilyCareCenterDataWrapper).item.name
+                            else -> (it as HomelessCenterDataWrapper).item.name
+                        }
+                    }
                 })
 }
