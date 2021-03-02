@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">TalentoMobileTechTest</string>
+    <string name="dialog_availablethemes_loading_message">Requesting Themes</string>
+    <string name="dialog_default_loading_message">Please wait…</string>
+    <string name="dialog_default_error_message">An unexpected error has occurred</string>
+    <string name="dialog_default_error_action">Dismiss</string>
+
+    <string name="title_refid">Identificador Url</string>
+    <string name="title_type">Tipo</string>
+    <string name="title_id">ID</string>
+    <string name="title_title">Titulo</string>
+    <string name="title_relation">Url Relacionada</string>
+
+    <string name="title_locality">Localidad</string>
+    <string name="title_postalCode">Codigo Postal</string>
+    <string name="title_streetAddress">Dirección</string>
+
+    <string name="title_latitude">Coordenada Latitud</string>
+    <string name="title_longitud">Coordenada Longitud</string>
+
+    <string name="title_organizationdesc">Descripcion de la Organicación</string>
+    <string name="title_schedule">Horario</string>
+    <string name="title_services">Servicios</string>
+    <string name="title_organizationName">Nombre de la organización</string>
+
+</resources>
