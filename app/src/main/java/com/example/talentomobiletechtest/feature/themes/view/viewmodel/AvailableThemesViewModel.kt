@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.example.talentomobiletechtest.common.domain.observer.BaseObserver
 import com.example.talentomobiletechtest.common.view.viewmodel.BaseViewModel
 import com.example.talentomobiletechtest.common.view.viewmodel.Resource
-import com.example.talentomobiletechtest.feature.themes.data.model.Center
 import com.example.talentomobiletechtest.feature.themes.domain.usecase.RequestFeedCentersUseCase
+import com.example.talentomobiletechtest.feature.themes.view.adapter.dw.CenterDataWrapper
 
 class AvailableThemesViewModel(
     private val requestFeedCentersUseCase: RequestFeedCentersUseCase
@@ -15,8 +15,8 @@ class AvailableThemesViewModel(
 
     var themesAlreadyRequested: Boolean = false
 
-    private var _availableCenters = MutableLiveData<Resource<List<Center>>>()
-    val availableCenters: LiveData<Resource<List<Center>>>
+    private var _availableCenters = MutableLiveData<Resource<List<CenterDataWrapper>>>()
+    val availableCenter: LiveData<Resource<List<CenterDataWrapper>>>
         get() = _availableCenters
 
     fun updateCentersList(showLoading: Boolean = true) {
@@ -26,9 +26,9 @@ class AvailableThemesViewModel(
         runUseCase(requestFeedCentersUseCase, createRequestFeedCentersObserver())
     }
 
-    private fun createRequestFeedCentersObserver(): BaseObserver<in List<Center>> {
-        return object : BaseObserver<List<Center>>() {
-            override fun onNext(value: List<Center>) {
+    private fun createRequestFeedCentersObserver(): BaseObserver<List<CenterDataWrapper>> {
+        return object : BaseObserver<List<CenterDataWrapper>>() {
+            override fun onNext(value: List<CenterDataWrapper>) {
                 _availableCenters.postValue(Resource.Success(value))
             }
 

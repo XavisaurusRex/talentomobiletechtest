@@ -2,14 +2,14 @@ package com.example.talentomobiletechtest.common.dependencyinjection.presentatio
 
 import com.example.talentomobiletechtest.common.view.fragment.ErrorDialogFragment
 import com.example.talentomobiletechtest.common.view.fragment.LoadingDialogFragment
-import com.example.talentomobiletechtest.feature.themes.view.activity.ThemesSelectionActitivity
+import com.example.talentomobiletechtest.feature.themes.view.activity.CentersFeedActivity
 import dagger.Subcomponent
 
 @PresentationScope
 @Subcomponent
 interface PresentationComponent {
 
-    fun inject(activity: ThemesSelectionActitivity)
+    fun inject(activity: CentersFeedActivity)
 
     fun inject(fragment: LoadingDialogFragment)
 
