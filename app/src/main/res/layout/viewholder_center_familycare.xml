@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="15dp"
+    android:layout_marginTop="15dp"
+    android:backgroundTint="@android:color/holo_blue_bright"
+    app:cardCornerRadius="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvCenterTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Widget.MaterialComponents.TextView"
+            android:textSize="20sp"
+            android:layout_margin="10dp"
+            tools:text="Title example" />
+
+        <TextView
+            android:id="@+id/tvCenterSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="end"
+            android:textAppearance="@style/Widget.MaterialComponents.TextView"
+            android:textSize="18sp"
+            tools:text="Subtitle example" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TalentoMobileTechTest">
-        <activity android:name="com.example.talentomobiletechtest.feature.themes.view.activity.ThemesSelectionActitivity">
+        <activity android:name="com.example.talentomobiletechtest.feature.themes.view.activity.CentersFeedActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

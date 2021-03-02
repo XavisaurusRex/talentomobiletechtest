@@ -1,7 +1,6 @@
 package com.example.talentomobiletechtest.feature.themes.view.activity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.example.talentomobiletechtest.R
 import com.example.talentomobiletechtest.common.dependencyinjection.presentation.PresentationComponent
@@ -9,14 +8,19 @@ import com.example.talentomobiletechtest.common.view.activity.BaseActivity
 import com.example.talentomobiletechtest.common.view.navigator.DialogsNavigator
 import com.example.talentomobiletechtest.common.view.viewmodel.Resource
 import com.example.talentomobiletechtest.common.view.viewmodel.VTTViewModelFactory
-import com.example.talentomobiletechtest.databinding.ActivityThemeSelectionBinding
-import com.example.talentomobiletechtest.feature.themes.data.model.Center
+import com.example.talentomobiletechtest.databinding.ActivityCentersFeedBinding
+import com.example.talentomobiletechtest.feature.themes.view.adapter.CentersAdapter
+import com.example.talentomobiletechtest.feature.themes.view.adapter.dw.CenterDataWrapper
+import com.example.talentomobiletechtest.feature.themes.view.adapter.dw.FamilyCareCenterDataWrapper
+import com.example.talentomobiletechtest.feature.themes.view.adapter.dw.HomelessCenterDataWrapper
+import com.example.talentomobiletechtest.feature.themes.view.adapter.listener.CenterAdapterListener
 import com.example.talentomobiletechtest.feature.themes.view.viewmodel.AvailableThemesViewModel
+import com.google.android.material.snackbar.Snackbar
 import javax.inject.Inject
 
-class ThemesSelectionActitivity : BaseActivity() {
+class CentersFeedActivity : BaseActivity(), CenterAdapterListener {
 
-    private lateinit var binding: ActivityThemeSelectionBinding
+    private lateinit var binding: ActivityCentersFeedBinding
 
     @Inject
     lateinit var dialogsNavigator: DialogsNavigator
@@ -35,7 +39,7 @@ class ThemesSelectionActitivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityThemeSelectionBinding.inflate(layoutInflater)
+        binding = ActivityCentersFeedBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.btnMain.setOnClickListener {
@@ -50,11 +54,10 @@ class ThemesSelectionActitivity : BaseActivity() {
     }
 
     private fun setUpObservers() {
-        viewModel.availableCenters.observe(::getLifecycle) { updateList(it) }
+        viewModel.availableCenter.observe(::getLifecycle) { updateList(it) }
     }
 
-    private fun updateList(response: Resource<List<Center>>) {
-        Log.d("ThreadsInfo", "Simply Execute the livedata update")
+    private fun updateList(response: Resource<List<CenterDataWrapper>>) {
         when (response) {
             is Resource.Loading -> dialogsNavigator.showLoading(getString(R.string.dialog_availablethemes_loading_message))
             is Resource.Success -> {
@@ -69,13 +72,26 @@ class ThemesSelectionActitivity : BaseActivity() {
         viewModel.themesAlreadyRequested = true
     }
 
-    private fun manageSuccessResponse(data: List<Center>) {
-        val stringBuilder = StringBuilder()
-        data.forEach {
-            stringBuilder.append(it.name).append(", ")
-        }
+    private fun manageSuccessResponse(data: List<CenterDataWrapper>) {
+        val adapter = CentersAdapter(this)
+        binding.rcyCentersFeed.adapter = adapter
+        adapter.setData(data)
+    }
 
-        binding.tvMain.text = stringBuilder.toString()
+    override fun onHomelessCenterClicked(homelessCenterDataWrapper: HomelessCenterDataWrapper) {
+        Snackbar.make(
+            binding.rcyCentersFeed,
+            "homelessCenterDataWrapper -> ${homelessCenterDataWrapper.item.name}",
+            Snackbar.LENGTH_LONG
+        ).show();
+    }
+
+    override fun onFamilyCareCenterClicked(familyCareCenterDataWrapper: FamilyCareCenterDataWrapper) {
+        Snackbar.make(
+            binding.rcyCentersFeed,
+            "familyCareCenterDataWrapper -> ${familyCareCenterDataWrapper.item.name}",
+            Snackbar.LENGTH_LONG
+        ).show();
     }
 
 }

@@ -6,7 +6,7 @@ import com.example.talentomobiletechtest.common.view.adapter.listener.BaseAdapte
 import com.example.talentomobiletechtest.common.view.adapter.vh.BaseViewHolder
 
 abstract class BaseAdapter<DW, VH, LT> : RecyclerView.Adapter<VH>()
-        where DW : BaseDataWrapper, VH : BaseViewHolder<DW, LT>, LT: BaseAdapterListener<DW> {
+        where DW : BaseDataWrapper, VH : BaseViewHolder<DW, LT>, LT : BaseAdapterListener<DW> {
 
     protected abstract val data: List<DW>
     var listener: LT? = null
