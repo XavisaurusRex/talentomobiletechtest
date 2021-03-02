@@ -4,10 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
+import com.example.talentomobiletechtest.common.dependencyinjection.activity.scopes.ActivityScope
 import com.example.talentomobiletechtest.common.view.navigator.DialogsNavigator
 import com.example.talentomobiletechtest.common.view.navigator.ScreensNavigator
-import com.example.talentomobiletechtest.common.view.viewmodel.VTTViewModelFactory
-import com.example.talentomobiletechtest.feature.themes.domain.usecase.RequestFeedCentersUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -21,12 +20,6 @@ class ActivityModule(
 
     @Provides
     fun provideContext(): Context = activity
-
-    @Provides
-    fun provideViewModelFactory(
-        requestFeedCentersUseCase: RequestFeedCentersUseCase
-    ): VTTViewModelFactory =
-        VTTViewModelFactory(requestFeedCentersUseCase)
 
     @Provides
     @ActivityScope

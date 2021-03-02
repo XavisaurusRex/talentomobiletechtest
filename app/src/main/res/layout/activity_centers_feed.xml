@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature.themes.view.activity.CentersFeedActivity">
+    tools:context=".feature.centersfeed.view.activity.CentersFeedActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcyCentersFeed"
@@ -16,12 +16,5 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/btnMain"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnMain"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Test Parallell Observers"
-        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
