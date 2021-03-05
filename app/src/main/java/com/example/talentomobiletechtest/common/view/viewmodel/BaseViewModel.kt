@@ -1,5 +1,6 @@
 package com.example.talentomobiletechtest.common.view.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.talentomobiletechtest.common.domain.observable.BaseObservableUseCase
 import com.example.talentomobiletechtest.common.domain.observer.BaseObserver
@@ -8,6 +9,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 abstract class BaseViewModel : ViewModel() {
+
+    abstract fun init(savedStateHandle: SavedStateHandle)
 
     private val compositeDisposable = CompositeDisposable()
 

@@ -4,10 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.talentomobiletechtest.common.dependencyinjection.presentation.PresentationComponent
 import com.example.talentomobiletechtest.databinding.FragmentErrorDialogBinding
+import com.example.talentomobiletechtest.feature.details.view.fragment.CenterDetailsFragmentArgs
 
 class ErrorDialogFragment : BaseDialogFragment() {
+
+    val args: ErrorDialogFragmentArgs by navArgs()
 
     private lateinit var binding: FragmentErrorDialogBinding
 
@@ -27,25 +32,12 @@ class ErrorDialogFragment : BaseDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        arguments?.getString(ERROR_MESSAGE)?.let {
+        args.errorMessage?.let {
             binding.tvErrorMessage.text = it
         }
 
         binding.tvErrorAction.setOnClickListener {
-            this.dismiss()
-        }
-    }
-
-
-    companion object {
-        private const val ERROR_MESSAGE = "loadingMessage"
-
-        fun newInstance(errorMessage: String?): ErrorDialogFragment {
-            val args = Bundle()
-            args.putString(ERROR_MESSAGE, errorMessage)
-            val fragment = ErrorDialogFragment()
-            fragment.arguments = args
-            return fragment
+            findNavController().navigateUp()
         }
     }
 }

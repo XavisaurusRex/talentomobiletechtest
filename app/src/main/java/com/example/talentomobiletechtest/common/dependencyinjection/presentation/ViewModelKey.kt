@@ -1,4 +1,4 @@
-package com.example.talentomobiletechtest.common.dependencyinjection.activity.scopes
+package com.example.talentomobiletechtest.common.dependencyinjection.presentation
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

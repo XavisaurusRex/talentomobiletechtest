@@ -11,11 +11,12 @@ import com.example.talentomobiletechtest.feature.centersfeed.view.adapter.vh.Hom
 
 class CentersAdapter() : BaseAdapter<CenterDataWrapper, CenterViewHolder, CenterAdapterListener>() {
 
-    constructor(listener: CenterAdapterListener) : this() {
-        this.listener = listener
-    }
-
     override val data: ArrayList<CenterDataWrapper> = arrayListOf()
+
+    constructor(listener: CenterAdapterListener, dataWrappers: List<CenterDataWrapper>) : this() {
+        this.listener = listener
+        data.addAll(dataWrappers)
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -27,8 +28,4 @@ class CentersAdapter() : BaseAdapter<CenterDataWrapper, CenterViewHolder, Center
         }
     }
 
-    fun setData(dataWrappers: List<CenterDataWrapper>) {
-        data.addAll(dataWrappers)
-        notifyDataSetChanged()
-    }
 }

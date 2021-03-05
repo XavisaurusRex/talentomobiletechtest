@@ -15,12 +15,7 @@ class RequestCentersForHomelessPeopleUseCaseImpl(
             val elements = arrayListOf<HomelessCenterDataWrapper>()
             for (element in list) {
                 elements.add(
-                    HomelessCenterDataWrapper(
-                        HomelessCenterDataWrapper.Item(
-                            element.refId,
-                            element.title
-                        )
-                    )
+                    HomelessCenterDataWrapper(element)
                 )
             }
 

@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.talentomobiletechtest.databinding.ViewholderCenterFamilycareBinding
 import com.example.talentomobiletechtest.feature.centersfeed.view.adapter.dw.CenterDataWrapper
-import com.example.talentomobiletechtest.feature.centersfeed.view.adapter.dw.FamilyCareCenterDataWrapper
 import com.example.talentomobiletechtest.feature.centersfeed.view.adapter.listener.CenterAdapterListener
 
 class FamilyCareViewHolder(parent: ViewGroup) : CenterViewHolder(
@@ -21,13 +20,11 @@ class FamilyCareViewHolder(parent: ViewGroup) : CenterViewHolder(
         listener: CenterAdapterListener?,
         position: Int
     ) {
-        dataWrapper as FamilyCareCenterDataWrapper
-
-        binding.tvCenterTitle.text = dataWrapper.item.name
-        binding.tvCenterSubtitle.text = "Subtitle -> " + dataWrapper.item.name
+        binding.tvCenterTitle.text = dataWrapper.center.title
+        binding.tvCenterSubtitle.text = "Subtitle -> " + dataWrapper.center.title
 
         itemView.setOnClickListener {
-            listener?.onFamilyCareCenterClicked(dataWrapper)
+            listener?.onCenterClicked(dataWrapper.center)
         }
     }
 

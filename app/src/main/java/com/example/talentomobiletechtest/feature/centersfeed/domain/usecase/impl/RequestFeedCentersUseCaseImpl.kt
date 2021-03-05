@@ -4,8 +4,6 @@ import com.example.talentomobiletechtest.feature.centersfeed.domain.usecase.Requ
 import com.example.talentomobiletechtest.feature.centersfeed.domain.usecase.RequestFeedCentersUseCase
 import com.example.talentomobiletechtest.feature.centersfeed.domain.usecase.RequestJuvenileAndFamilyCareCentersUseCase
 import com.example.talentomobiletechtest.feature.centersfeed.view.adapter.dw.CenterDataWrapper
-import com.example.talentomobiletechtest.feature.centersfeed.view.adapter.dw.FamilyCareCenterDataWrapper
-import com.example.talentomobiletechtest.feature.centersfeed.view.adapter.dw.HomelessCenterDataWrapper
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 
@@ -30,16 +28,11 @@ class RequestFeedCentersUseCaseImpl(
                 mergeCenters.addAll(left)
                 mergeCenters.addAll(right)
 
-                if(mergeCenters.isEmpty()){
+                if (mergeCenters.isEmpty()) {
                     throw Exception()
                 }
 
-                mergeCenters.sortedBy {
-                    when (it.viewType) {
-                        CenterDataWrapper.VIEW_TYPE_FAMILY_CARE_CENTER -> (it as FamilyCareCenterDataWrapper).item.name
-                        else -> (it as HomelessCenterDataWrapper).item.name
-                    }
-                }
+                mergeCenters.sortedBy { it.center.title }
             }
         )
 }
