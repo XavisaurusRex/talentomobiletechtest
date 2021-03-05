@@ -8,8 +8,6 @@ import com.example.talentomobiletechtest.feature.centersfeed.data.mapper.impl.Ad
 import com.example.talentomobiletechtest.feature.centersfeed.data.mapper.impl.CenterListConverterImpl
 import com.example.talentomobiletechtest.feature.centersfeed.data.mapper.impl.LocationConverterImpl
 import com.example.talentomobiletechtest.feature.centersfeed.data.mapper.impl.OrganizationConverterImpl
-import com.example.talentomobiletechtest.feature.details.data.mapper.CenterDetailsConverter
-import com.example.talentomobiletechtest.feature.details.data.mapper.impl.CenterDetailsConverterImpl
 import dagger.Module
 import dagger.Provides
 import retrofit2.converter.gson.GsonConverterFactory
@@ -29,18 +27,6 @@ class ConverterModule {
         locationConverter: LocationConverter,
         organizationConverter: OrganizationConverter
     ): CenterListConverter = CenterListConverterImpl(
-        addressConverter,
-        locationConverter,
-        organizationConverter
-    )
-
-    @Provides
-    @AppScope
-    fun provideCenterDetailsConverter(
-        addressConverter: AddressConverter,
-        locationConverter: LocationConverter,
-        organizationConverter: OrganizationConverter
-    ): CenterDetailsConverter = CenterDetailsConverterImpl(
         addressConverter,
         locationConverter,
         organizationConverter
