@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/centersFeedFragment">
+    <fragment
+        android:id="@+id/centersFeedFragment"
+        android:name="com.example.talentomobiletechtest.feature.centersfeed.view.fragment.CentersFeedFragment"
+        android:label="centersFeedFragmentLabel"
+        tools:layout="@layout/fragment_centers_feed" >
+
+        <action
+            android:id="@+id/action_centersfeed_to_centerdetails"
+            app:destination="@id/centerDetails" />
+        <action
+            android:id="@+id/action_centersFeedFragment_to_dialogError"
+            app:destination="@id/dialogError" />
+        <action
+            android:id="@+id/action_centersFeedFragment_to_dialogLoading"
+            app:destination="@id/dialogLoading" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/centerDetails"
+        android:name="com.example.talentomobiletechtest.feature.details.view.fragment.CenterDetailsFragment"
+        android:label="centerDetailsLabel"
+        tools:layout="@layout/fragment_center_details" >
+
+        <argument
+            android:name="centerDetails"
+            app:argType="com.example.talentomobiletechtest.feature.centersfeed.data.model.Center"/>
+
+    </fragment>
+
+    <dialog
+        android:id="@+id/dialogLoading"
+        android:name="com.example.talentomobiletechtest.common.view.fragment.LoadingDialogFragment"
+        android:label="LoadingDialogFragment"
+        tools:layout="@layout/fragment_loading_dialog">
+
+        <argument
+            android:name="loadingMessage"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+    </dialog>
+
+    <dialog
+        android:id="@+id/dialogError"
+        android:name="com.example.talentomobiletechtest.common.view.fragment.ErrorDialogFragment"
+        android:label="ErrorDialogFragment"
+        tools:layout="@layout/fragment_error_dialog">
+
+        <argument
+            android:name="errorMessage"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+
+    </dialog>
+
+</navigation>

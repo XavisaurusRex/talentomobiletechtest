@@ -6,9 +6,6 @@ import com.example.talentomobiletechtest.common.data.repository.RetrofitCentersR
 import com.example.talentomobiletechtest.feature.centersfeed.data.mapper.CenterListConverter
 import com.example.talentomobiletechtest.feature.centersfeed.data.remote.CentersRepository
 import com.example.talentomobiletechtest.feature.centersfeed.data.remote.impl.CentersRepositoryImpl
-import com.example.talentomobiletechtest.feature.details.data.mapper.CenterDetailsConverter
-import com.example.talentomobiletechtest.feature.details.data.remote.CenterDetailsRepository
-import com.example.talentomobiletechtest.feature.details.data.remote.impl.CenterDetailsRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -29,17 +26,6 @@ class RepositoryModule {
         CentersRepositoryImpl(
             madridThemesRepository,
             centerListConverter
-        )
-
-    @Provides
-    @AppScope
-    fun provideCenterDetailsRepository(
-        retrofitCenterDetailsRepository: RetrofitCenterDetailsRepository,
-        centerDetailsConverter: CenterDetailsConverter
-    ): CenterDetailsRepository =
-        CenterDetailsRepositoryImpl(
-            retrofitCenterDetailsRepository,
-            centerDetailsConverter
         )
 
     @Provides

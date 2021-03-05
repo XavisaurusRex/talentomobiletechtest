@@ -1,5 +1,7 @@
 package com.example.talentomobiletechtest.common.view.adapter.dw
 
-abstract class BaseDataWrapper {
+import android.os.Parcelable
+
+abstract class BaseDataWrapper: Parcelable {
     abstract val viewType: Int
 }

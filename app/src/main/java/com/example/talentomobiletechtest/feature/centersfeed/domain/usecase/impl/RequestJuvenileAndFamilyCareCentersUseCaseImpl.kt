@@ -15,12 +15,7 @@ class RequestJuvenileAndFamilyCareCentersUseCaseImpl(
             val elements = arrayListOf<FamilyCareCenterDataWrapper>()
             for (element in list) {
                 elements.add(
-                    FamilyCareCenterDataWrapper(
-                        FamilyCareCenterDataWrapper.Item(
-                            element.refId,
-                            element.title
-                        )
-                    )
+                    FamilyCareCenterDataWrapper(element)
                 )
             }
 

@@ -7,9 +7,6 @@ import com.example.talentomobiletechtest.feature.centersfeed.domain.usecase.Requ
 import com.example.talentomobiletechtest.feature.centersfeed.domain.usecase.impl.RequestCentersForHomelessPeopleUseCaseImpl
 import com.example.talentomobiletechtest.feature.centersfeed.domain.usecase.impl.RequestFeedCentersUseCaseImpl
 import com.example.talentomobiletechtest.feature.centersfeed.domain.usecase.impl.RequestJuvenileAndFamilyCareCentersUseCaseImpl
-import com.example.talentomobiletechtest.feature.details.data.remote.CenterDetailsRepository
-import com.example.talentomobiletechtest.feature.details.domain.usecase.RequestCenterDetailsUseCase
-import com.example.talentomobiletechtest.feature.details.domain.usecase.impl.RequestCenterDetailsUseCaseImpl
 import dagger.Module
 import dagger.Provides
 
@@ -34,7 +31,4 @@ class UseCaseModule {
     fun provideFirstWorkObservableUseCase(centersRepository: CentersRepository): RequestJuvenileAndFamilyCareCentersUseCase =
         RequestJuvenileAndFamilyCareCentersUseCaseImpl(centersRepository)
 
-    @Provides
-    fun provideRequestCenterDetailsUseCase(centerDetailsRepository: CenterDetailsRepository): RequestCenterDetailsUseCase =
-        RequestCenterDetailsUseCaseImpl(centerDetailsRepository)
 }
